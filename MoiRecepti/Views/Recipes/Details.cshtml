@@ -1,0 +1,99 @@
+﻿@model MoiRecepti.Models.Recipe
+@{
+    ViewBag.Title = "Детали за рецептата";
+}
+
+<h2 style="color: #B54F41"><b>@Html.DisplayFor(model => model.Ime)</b></h2>
+<div>
+    <div class='d-flex whiteBackground'>
+        <div class='fitAll'>
+            @*/*class="fitAll imgHeight100"*/*@
+            <img class="fitAll imgHeight100" src="@Html.DisplayFor(model => model.Slika)" style="max-height:600px;" />
+        </div>
+        <div class='width50'>
+            <div style="padding-top:30px">
+                <span class='textMaroon'>Алергени: </span>
+                <span>@Html.DisplayFor(model => model.Alergeni)</span>
+            </div>
+            <div>
+                <span class='textMaroon'>Просечна оценка: </span>
+                <span>@Html.DisplayFor(model => model.AverageRating)</span>
+            </div>
+            <div>
+                <span class='textMaroon'>Број на прегледи: </span>
+                <span>@Html.DisplayFor(model => model.TotalViews)</span>
+            </div>
+            <div>
+                <span class='textMaroon'>Комплексност: </span>
+                <span>@Html.DisplayFor(model => model.NivoNaTezina)</span>
+            </div>
+            <div>
+                <span class='textMaroon'>Препорачано за: </span>
+                <span>@Html.DisplayFor(model => model.ZaKolkuLica) луѓе</span>
+            </div>
+            <div>
+                <span class='textMaroon'>Време: </span>
+                <span>@Html.DisplayFor(model => model.VremePodgotovka) минути</span>
+            </div>
+            <div>
+                <span class='textMaroon'>Автор: </span>
+                <span>@Html.DisplayFor(model => model.UserEmail)</span>
+            </div>
+            <div style="margin-bottom:5px">
+                <span class='textMaroon'>Состојки: </span>
+            <p>@Html.DisplayFor(model => model.Sostojki)</p> </div>
+            @if (ViewBag.Boolean)
+            {
+                <div style="margin-bottom:5px">@Html.ActionLink("Додај Критика", "Review", new { id = Model.ID }, new { @class = "btn btn-primary" })</div>
+            }
+        </div>
+    </div>
+</div>
+<h3>Начин на подготовка: </h3>
+<p style="max-width:100%">
+    @Html.DisplayFor(model => model.Opis)
+</p>
+<p>
+    @if (User.Identity.Name.Equals(Model.UserEmail))
+    {
+
+        @Html.ActionLink("Ажурирај го рецептот", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Избриши го рецептот", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger" })
+    }
+
+    @Html.ActionLink("Назад", "Index", null, new { @class = "btn btn-success" })
+
+</p>
+<style>
+    .whiteBackground {
+        display: flex;
+        background-color: #30240c;
+        border-radius: 50px;
+        justify-content: space-between;
+    }
+    .width50 {
+        width: 100%;
+    }
+    .textMaroon {
+        color: #B54F41!important;
+        font-weight:bold;
+    }
+    .fitAll {
+        width: 100%;
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
+    }
+    .imgHeight100 {
+        height: 100%;
+    }
+    .width50 > div {
+        padding: 10px 20px;
+        font-size: 1.5rem;
+    }
+    .width50 > div > span {
+        color:white;
+    }
+    .width50 > div > p {
+        color: white;
+    }
+</style>

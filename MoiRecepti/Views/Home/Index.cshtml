@@ -1,31 +1,155 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model MoiRecepti.Models.HomePageView
+@{
+    ViewBag.Title = "Почетна";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div style="display:flex;margin-top:50px">
+    <div class="jumbotron" style="flex-grow: 1; background-color: #30240c; margin: 2% 0 4% 0;padding: 0">
+        <div class="divStyle">
+            <div>
+                <img class="icon" src="https://i.ibb.co/HBJTcnt/image-2023-01-20-222958703.png" />
+            </div>
+            <h4>@Html.ActionLink("Доручеци", "Breakfast", "Recipes",null, new { @class = "textWhite" })</h4>
+        </div>
+        <div class="divStyle">
+            <div>
+                <img class="icon" src="https://i.ibb.co/7g3xGk8/image-2023-01-20-222259955.png"/>
+            </div>
+             <h4>@Html.ActionLink("Предјадења", "Side", "Recipes",null, new { @class = "textWhite" })</h4>
+        </div>
+    </div>
+    <div style="flex-grow:2;margin-bottom:30px;width:42%">
+        <div style="text-align:center">
+            <h1 style="padding-bottom:20px" class="textBlack">Пронајди рецепти</h1>
+        </div>
+        <div style="text-align:center">
+            <img src="https://i.ibb.co/MpzPTkG/image-2023-01-20-122126623.png" />
+        </div>
+        <div style="max-width:100%;display:block;margin-top:20px;text-align:center">
+            <p><a href="/Recipes" class="btn btnMaroon btn-lg">Пребарувај рецепти</a></p>
+        </div>
+    </div>
+    <div class="jumbotron" style="flex-grow: 1; background-color: #30240c; margin: 2% 0 4% 0;padding:0">
+        <div class="divStyle">
+            <div>
+                <img class="icon" src="https://i.ibb.co/5Rc6d2K/image-2023-01-20-223348532.png" />
+            </div>
+            <h4 style="text-align:center">@Html.ActionLink("Главни јадења", "Main", "Recipes",null, new { @class = "textWhite" })</h4>
+
+        </div>
+        <div class="divStyle">
+            <div>
+                <img class="icon" src="https://i.ibb.co/sqdk99V/image-2023-01-20-223753876.png" />
+            </div>
+            <h4 style="text-align:center">@Html.ActionLink("Десерти", "Dessert", "Recipes", null, new { @class = "textWhite" })</h4>
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+<div>
+    <h3 style="color: #B54F41; font-weight: bold ">Најдобро оценети рецепти</h3>
+    <div style="display:flex;justify-content:space-around;background-color:#30240c;border-radius:20px">
+    @foreach (var item in Model.TopRated)
+    {
+        <div style="display:flex;flex-direction:column">
+            <div style="display:flex;flex-direction: column">
+                <span><img src="@item.Slika" class="img-responsive roundImg darken"/></span>
+                <span class="aboveImgTxt">
+                    @Html.ActionLink(item.Ime, "Details", "Recipes", new { id = item.ID }, null)
+                </span>
+            </div>
+        </div>
+
+    }
     </div>
 </div>
+<div>
+    <h3 style="color: #B54F41; font-weight: bold ">Најпосетувани рецепти</h3>
+    <div style="display:flex;justify-content:space-around;background-color:#30240c;border-radius:20px">
+        @foreach (var item in Model.MostVisited)
+        {
+            <div style="display:flex;flex-direction:column">
+                <div style="display:flex;flex-direction: column">
+                    <span><img src="@item.Slika" class="img-responsive roundImg darken" /></span>
+                    <span class="aboveImgTxt">
+                        @Html.ActionLink(item.Ime, "Details", "Recipes", new { id = item.ID }, null)
+                    </span>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+<div>
+    <h3 style="color: #B54F41; font-weight: bold ">Најнови рецепти</h3>
+    <div style="display:flex;justify-content:space-around;background-color:#30240c;border-radius:20px">
+        @foreach (var item in Model.Newest)
+        {
+            <div style="display:flex;flex-direction:column">
+                <div style="display:flex;flex-direction: column">
+                    <span><img src="@item.Slika" class="img-responsive roundImg darken" /></span>
+                    <span class="aboveImgTxt">
+                        @Html.ActionLink(item.Ime, "Details", "Recipes", new { id = item.ID }, null)
+                    </span>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+<style>
+    .textBlack {
+        color: black !important;
+        font-weight:bold;
+    }
+    .textWhite {
+        color: white !important;
+    }
+    .textWhite:hover {
+        text-decoration: none;
+        color: #40E0D0 !important;
+    }
+    .icon {
+        height: 100px;
+    }
+    .divStyle {
+        text-align:center;
+        padding:20% 0;
+    }
+    .roundImg {
+        border-radius: 50%;
+        width: 134px;
+        height: 134px;
+        margin: 15px;
+    }
+    .darken {
+        filter: brightness(80%);
+        z-index: -5;
+    }
+    .aboveImgTxt {
+        background-color: #B54F41;
+        font-weight: 600;
+        z-index: 1;
+        text-align: center;
+        color: #FFA500 !important;
+        font-weight: bold;
+        width: 134px;
+        margin: -90px auto 60px auto;
+        border-radius: 40px;
+    }
+    .aboveImgTxt > a {
+        text-decoration: none;
+        color: white;
+    }
+        .aboveImgTxt > a:hover {
+            text-decoration: none;
+            color: #40e0d0;
+        }
+    .btnMaroon {
+        background-color: #B54F41;
+        color: white
+    }
+     .btnMaroon:hover{
+         color:#40e0d0
+     }
+</style>

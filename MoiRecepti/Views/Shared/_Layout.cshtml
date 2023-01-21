@@ -3,42 +3,81 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+<body style="background-color: #dbdbd0; padding-top:20px" class="container body-content">
+    <div class="container body-content" style="color:white;">
+
+        <div style="background-color: #30240c;padding:25px;border-radius:5px">
+            @Html.ActionLink("Пронајди Рецепти", "Index", "Home", new { area = "" }, new { @class = "textWhite biggerFont" })
+            <ul class="navigacija">
+                <li>@Html.ActionLink("Сите рецепти", "Index", "Recipes", null, new { @class = "textWhite" })</li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>@Html.ActionLink("Мои рецепти", "MyRecipes", "Recipes", null, new { @class = "textWhite" })</li>
+                    <li>@Html.ActionLink("Мои критики", "MyReviews", "Home", null, new { @class = "textWhite" })</li>
+                    <li>@Html.ActionLink("Додај нов рецепт", "Create","Recipes", null, new { @class = "textWhite" })</li>
+                }
                 @Html.Partial("_LoginPartial")
-            </div>
+            </ul>
+            
+            @*<div style="display:inline">
+            @Html.Partial("_LoginPartial")
+        </div>*@
         </div>
-    </div>
+     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year Пронајди рецепти</p>
+            <p>@Html.ActionLink("Контакт", "Contact", "Home")</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/bootstrap.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<style>
+    .textWhite {
+        color: white !important;
+        padding-right: 20px;
+    }
+    .navigacija {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: inline;
+    }
+    .navigacija li {
+        display: inline;
+    }
+    .biggerFont {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    .textBlack {
+        color: black !important;
+        font-weight: bold;
+    }
+
+    .textWhite:hover {
+        text-decoration: none;
+        color: #40E0D0 !important;
+    }
+
+    .icon {
+        height: 100px;
+    }
+
+    .divStyle {
+        text-align: center;
+        padding: 20% 0;
+    }
+    
+</style>

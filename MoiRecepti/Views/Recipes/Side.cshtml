@@ -1,0 +1,174 @@
+﻿@model IEnumerable<MoiRecepti.Models.Recipe>
+
+@{
+    ViewBag.Title = "Предјадења";
+}
+
+<h2>Предјадења</h2>
+
+<div class="divStyle1">
+
+    @Html.ActionLink("Сите рецепти", "Index", null, new { @class = "btn btn1" })
+    @Html.ActionLink("Доручеци", "Breakfast", null, new { @class = "btn btn1" })
+    @Html.ActionLink("Главни јадења", "Main", null, new { @class = "btn btn1" })
+    @Html.ActionLink("Десерти", "Dessert", null, new { @class = "btn btn1" })
+</div>
+<table class="table" id="items">
+    <thead class="theadDark">
+        <tr>
+            <th>
+                Рецепт
+            </th>
+            <th>
+                Категорија
+            </th>
+            <th>
+                Комплексност
+            </th>
+            <th>
+                Време на подготовка
+            </th>
+            <th>
+                Просечна оценка
+            </th>
+            <th>
+                Прегледи
+            </th>
+            <th>
+                Датум на објава
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <p>
+                        <img src="@Html.DisplayFor(modelItem => item.Slika)" class="img-responsive roundImg darken" />
+                    </p>
+                    <p class="aboveImgTxt">
+                        @Html.ActionLink(item.Ime, "Details", "Recipes", new { id = item.ID }, null)
+                    </p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NivoNaTezina)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VremePodgotovka) минути
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AverageRating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalViews)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeCreated)
+                </td>
+            </tr>
+
+        }
+    </tbody>
+
+</table>
+@section Scripts
+{
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $("#items").DataTable();
+            /*$("#items .js-delete").on("click", function () {
+                var button = $(this);
+                bootbox.confirm("Дали сакате да ги избришете рецептот?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/Recipes/Delete/" + button.attr("data-id"),
+                            method: "GET",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                });
+            });*/
+        });
+    </script>
+}
+<style>
+    .theadDark {
+        background-color: #30240c;
+        color: white;
+        border-radius: 15px;
+    }
+
+    .roundImg {
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        margin: 15px;
+    }
+
+    .darken {
+        filter: brightness(80%);
+        z-index: -5;
+    }
+
+    .aboveImgTxt {
+        background-color: #B54F41;
+        font-weight: 600;
+        z-index: 1;
+        position: relative;
+        text-align: center;
+        color: #FFA500 !important;
+        font-weight: bold;
+        width: 134px;
+        margin: -140px auto 90px 50px;
+        padding: 5px;
+        border-radius: 40px;
+    }
+
+        .aboveImgTxt > a {
+            text-decoration: none;
+            color: white;
+        }
+
+            .aboveImgTxt > a:hover {
+                text-decoration: none;
+                color: #40e0d0;
+            }
+
+    td + td {
+        padding-top: 100px !important;
+        font-weight: bold;
+    }
+
+    .btn1 {
+        background-color: #B54F41;
+        color: white;
+        font-size: 2rem;
+        padding: 15px 25px;
+        border-radius: 20px;
+    }
+
+        .btn1:hover {
+            color: #40e0d0;
+            text-decoration: none;
+        }
+
+    .divStyle1 {
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+</style>

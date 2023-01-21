@@ -1,22 +1,49 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "heh" }))
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class="textWhite" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+        <li><a class="textWhite" href="javascript:document.getElementById('logoutForm').submit()">Одјави се</a></li>
+
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+    <li class="hehe">
+
+        <li>@Html.ActionLink("Регистрирај се", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "textWhite" })</li>
+
+        <li>@Html.ActionLink("Најави се", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class="textWhite" })</li>
+
+    </li>
 }
+<style>
+    .textWhite {
+        color: white !important;
+    }
+
+    .navigacija {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: inline;
+    }
+
+    .navigacija li {
+        display: inline;
+    }
+    .heh {
+        display: inline;
+        padding-left: 15%;
+        /*float: right;*/
+    }
+    .hehe {
+        display: inline;
+        padding-left: 50%;
+    }
+</style>

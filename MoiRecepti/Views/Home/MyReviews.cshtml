@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MoiRecepti.Models.Review>
+
+@{
+    ViewBag.Title = "Мои критики";
+}
+
+<h2>Мои критики</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Оценка
+        </th>
+        <th>
+            Коментар
+        </th>
+        <th>
+            За рецепта број: 
+        </th>
+        <th>
+            Време на објава
+        </th>
+        @*<th></th>*@
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @Html.ActionLink("Рецепт", "Details", "Recipes", new { id = item.RecipeID }, new { @class = "btn btn-primary" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeCreated)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID })
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>*@
+    </tr>
+}
+
+</table>

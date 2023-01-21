@@ -1,0 +1,120 @@
+﻿@model MoiRecepti.Models.Recipe
+
+@{
+    ViewBag.Title = "Додај нова рецепта";
+    ViewBag.Vidovi = new List<SelectListItem>
+            {
+                new SelectListItem {Text = "Доручек", Value = "Доручек"},
+                new SelectListItem {Text = "Предјадење", Value = "Предјадење"},
+                new SelectListItem {Text = "Главно јадење", Value = "Главно јадење"},
+                new SelectListItem {Text = "Десерт", Value = "Десерт"}
+            };
+    ViewBag.Kompleksnosti = new List<SelectListItem>
+            {
+                new SelectListItem {Text = "Ниско", Value = "Ниско"},
+                new SelectListItem {Text = "Средно", Value = "Средно"},
+                new SelectListItem {Text = "Високо", Value = "Високо"}
+            };
+}
+
+<h2>Додај нова рецепта</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ime,"Име на рецептот", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sostojki,"Состојки", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Sostojki, 10, 80, null)
+                @Html.ValidationMessageFor(model => model.Sostojki, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Alergeni,"Алергени", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Alergeni, 2, 80, null)
+                @Html.ValidationMessageFor(model => model.Alergeni, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Opis,"Опис", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Opis, 15, 80, null)
+                @Html.ValidationMessageFor(model => model.Opis, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vid,"Категорија", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 dd">
+                @Html.DropDownListFor(model => model.Vid, new SelectList(ViewBag.Vidovi, "Text", "Value"), "Избери категорија", new { htmlAttributes = new { @class = "form-control dd" } })
+                @Html.ValidationMessageFor(model => model.Vid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NivoNaTezina,"Комплексност", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 dd">
+                @Html.DropDownListFor(model => model.NivoNaTezina, new SelectList(ViewBag.Kompleksnosti, "Text", "Value"), "Избери комплексност", new { htmlAttributes = new { @class = "form-control dd" } })
+                @Html.ValidationMessageFor(model => model.NivoNaTezina, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ZaKolkuLica,"За колку лица", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ZaKolkuLica, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ZaKolkuLica, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VremePodgotovka,"Време на подготовка", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VremePodgotovka, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VremePodgotovka, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Slika,"Линк до слика", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Slika, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Slika, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Испрати" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<style>
+    .dd > select{
+        padding: 10px!important;
+        border-radius: 20px;
+    }
+</style>
